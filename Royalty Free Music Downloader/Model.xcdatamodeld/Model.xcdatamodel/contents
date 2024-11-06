@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Album" representedClassName="Album" syncable="YES">
+        <attribute name="groupByAlbumArtist" optional="YES" attributeType="Boolean" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="artist" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="albums" inverseEntity="Artist" indexed="YES" syncable="YES"/>
+        <relationship name="filesForAlbumArtistGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="albumRefForAlbumArtistGroup" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="filesForArtistGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="albumRefForArtistGroup" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="genreAlbums" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GenreAlbum" inverseName="album" inverseEntity="GenreAlbum" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Archive" representedClassName="Archive" syncable="YES">
+        <attribute name="bytes" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentDirectoryRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Directory" inverseName="contentArchives" inverseEntity="Directory" syncable="YES"/>
+    </entity>
+    <entity name="Artist" representedClassName="Artist" syncable="YES">
+        <attribute name="groupByAlbumArtist" optional="YES" attributeType="Boolean" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="albums" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Album" inverseName="artist" inverseEntity="Album" indexed="YES" syncable="YES"/>
+        <relationship name="filesForAlbumArtistGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="artistRefForAlbumArtistGroup" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="filesForArtistGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="artistRefForArtistGroup" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="genreArtists" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GenreArtist" inverseName="artist" inverseEntity="GenreArtist" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Bookmark" representedClassName="Bookmark" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bookmarkItemRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BookmarkItem" inverseName="bookmarkRef" inverseEntity="BookmarkItem" syncable="YES"/>
+    </entity>
+    <entity name="BookmarkFolder" representedClassName="BookmarkFolder" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bookmarkItemRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BookmarkItem" inverseName="bookmarkFolderRef" inverseEntity="BookmarkItem" syncable="YES"/>
+        <relationship name="contentBookmarkItemRefs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookmarkItem" inverseName="parentBookmarkFolderRef" inverseEntity="BookmarkItem" syncable="YES"/>
+    </entity>
+    <entity name="BookmarkItem" representedClassName="BookmarkItem" syncable="YES">
+        <attribute name="bookmark" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="bookmarkFolderRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BookmarkFolder" inverseName="bookmarkItemRef" inverseEntity="BookmarkFolder" syncable="YES"/>
+        <relationship name="bookmarkRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Bookmark" inverseName="bookmarkItemRef" inverseEntity="Bookmark" syncable="YES"/>
+        <relationship name="parentBookmarkFolderRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BookmarkFolder" inverseName="contentBookmarkItemRefs" inverseEntity="BookmarkFolder" syncable="YES"/>
+    </entity>
+    <entity name="BrowserState" representedClassName="BrowserState" syncable="YES">
+        <attribute name="currentPageIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="history" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
+    <entity name="Directory" representedClassName="Directory" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contentArchives" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Archive" inverseName="parentDirectoryRef" inverseEntity="Archive" syncable="YES"/>
+        <relationship name="contentDirectories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Directory" inverseName="parentDirectoryRef" inverseEntity="Directory" syncable="YES"/>
+        <relationship name="contentDownloads" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Download" inverseName="parentDirectoryRef" inverseEntity="Download" syncable="YES"/>
+        <relationship name="contentFiles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="parentDirectoryRef" inverseEntity="File" syncable="YES"/>
+        <relationship name="parentDirectoryRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Directory" inverseName="contentDirectories" inverseEntity="Directory" syncable="YES"/>
+    </entity>
+    <entity name="Download" representedClassName="Download" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="downloadDestinationFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="downloadURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="originalFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="temporaryDownloadFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentDirectoryRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Directory" inverseName="contentDownloads" inverseEntity="Directory" syncable="YES"/>
+    </entity>
+    <entity name="File" representedClassName="File">
+        <attribute name="albumArtistName" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="albumName" optional="YES" attributeType="String" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="artistName" optional="YES" attributeType="String" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="artworkFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bitRate" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="bytes" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateAdded" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="genre" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="iPodMusicLibraryFile" optional="YES" attributeType="Boolean" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="lastPlayedDate" optional="YES" attributeType="Date" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="lyrics" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="persistentID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="playCount" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="thumbnailFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="track" optional="YES" attributeType="Integer 64" indexed="YES" syncable="YES"/>
+        <attribute name="uppercaseExtension" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="year" optional="YES" attributeType="Integer 16" indexed="YES" syncable="YES"/>
+        <relationship name="albumRefForAlbumArtistGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="filesForAlbumArtistGroup" inverseEntity="Album" indexed="YES" syncable="YES"/>
+        <relationship name="albumRefForArtistGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="filesForArtistGroup" inverseEntity="Album" indexed="YES" syncable="YES"/>
+        <relationship name="artistRefForAlbumArtistGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="filesForAlbumArtistGroup" inverseEntity="Artist" indexed="YES" syncable="YES"/>
+        <relationship name="artistRefForArtistGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="filesForArtistGroup" inverseEntity="Artist" indexed="YES" syncable="YES"/>
+        <relationship name="genreAlbumRefForAlbumArtistGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GenreAlbum" inverseName="filesForAlbumArtistGroup" inverseEntity="GenreAlbum" indexed="YES" syncable="YES"/>
+        <relationship name="genreAlbumRefForArtistGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GenreAlbum" inverseName="filesForArtistGroup" inverseEntity="GenreAlbum" indexed="YES" syncable="YES"/>
+        <relationship name="genreArtistRefForAlbumArtistGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GenreArtist" inverseName="filesForAlbumArtistGroup" inverseEntity="GenreArtist" indexed="YES" syncable="YES"/>
+        <relationship name="genreArtistRefForArtistGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GenreArtist" inverseName="filesForArtistGroup" inverseEntity="GenreArtist" indexed="YES" syncable="YES"/>
+        <relationship name="genreRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Genre" inverseName="files" inverseEntity="Genre" indexed="YES" syncable="YES"/>
+        <relationship name="parentDirectoryRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Directory" inverseName="contentFiles" inverseEntity="Directory" syncable="YES"/>
+        <relationship name="playlistItemRefs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PlaylistItem" inverseName="fileRef" inverseEntity="PlaylistItem" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <entity name="Genre" representedClassName="Genre" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="files" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="genreRef" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="genreAlbums" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GenreAlbum" inverseName="genre" inverseEntity="GenreAlbum" indexed="YES" syncable="YES"/>
+        <relationship name="genreArtists" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GenreArtist" inverseName="genre" inverseEntity="GenreArtist" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="GenreAlbum" representedClassName="GenreAlbum" syncable="YES">
+        <attribute name="groupByAlbumArtist" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="album" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="genreAlbums" inverseEntity="Album" indexed="YES" syncable="YES"/>
+        <relationship name="filesForAlbumArtistGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="genreAlbumRefForAlbumArtistGroup" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="filesForArtistGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="genreAlbumRefForArtistGroup" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="genre" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Genre" inverseName="genreAlbums" inverseEntity="Genre" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="GenreArtist" representedClassName="GenreArtist" syncable="YES">
+        <attribute name="groupByAlbumArtist" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="artist" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="genreArtists" inverseEntity="Artist" indexed="YES" syncable="YES"/>
+        <relationship name="filesForAlbumArtistGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="genreArtistRefForAlbumArtistGroup" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="filesForArtistGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="genreArtistRefForArtistGroup" inverseEntity="File" indexed="YES" syncable="YES"/>
+        <relationship name="genre" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Genre" inverseName="genreArtists" inverseEntity="Genre" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Page" representedClassName="Page" syncable="YES">
+        <attribute name="currentTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currentURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pageIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="previewFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="urlIndex" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="urls" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
+    <entity name="PlayerState" representedClassName="PlayerState" syncable="YES">
+        <attribute name="equalizerPresetIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="playbackTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="playlist" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="shufflePlaylist" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
+    <entity name="Playlist" representedClassName="Playlist">
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <relationship name="playlistItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PlaylistItem" inverseName="playlistRef" inverseEntity="PlaylistItem" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
+    </entity>
+    <entity name="PlaylistItem" representedClassName="PlaylistItem">
+        <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <relationship name="fileRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="File" inverseName="playlistItemRefs" inverseEntity="File" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="playlistRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Playlist" inverseName="playlistItems" inverseEntity="Playlist" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
+    </entity>
+    <elements>
+        <element name="Album" positionX="-245" positionY="-18" width="128" height="135"/>
+        <element name="Archive" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="Artist" positionX="432" positionY="162" width="128" height="135"/>
+        <element name="Bookmark" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="BookmarkFolder" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="BookmarkItem" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="BrowserState" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Directory" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="Download" positionX="241" positionY="192" width="128" height="165"/>
+        <element name="File" positionX="-20" positionY="189" width="128" height="555"/>
+        <element name="Genre" positionX="475" positionY="372" width="128" height="105"/>
+        <element name="GenreAlbum" positionX="18" positionY="-72" width="128" height="120"/>
+        <element name="GenreArtist" positionX="277" positionY="-144" width="128" height="120"/>
+        <element name="Page" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="PlayerState" positionX="457" positionY="51" width="128" height="120"/>
+        <element name="Playlist" positionX="-306" positionY="519" width="128" height="75"/>
+        <element name="PlaylistItem" positionX="-342" positionY="207" width="128" height="90"/>
+    </elements>
+</model>

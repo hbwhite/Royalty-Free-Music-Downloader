@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Defaults Set</key>
+	<true/>
+	<key>Repeat Mode</key>
+	<integer>0</integer>
+	<key>Shuffle</key>
+	<false/>
+	<key>Group By Album Artist</key>
+	<true/>
+	<key>Cover Flow Enabled</key>
+	<true/>
+	<key>iPod Music Library</key>
+	<false/>
+	<key>Top 25 Most Played Smart Playlist Enabled</key>
+	<true/>
+	<key>My Top Rated Smart Playlist Enabled</key>
+	<true/>
+	<key>Recently Played Smart Playlist Enabled</key>
+	<true/>
+	<key>Recently Added Smart Playlist Enabled</key>
+	<true/>
+	<key>Tab Order</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+		<integer>8</integer>
+	</array>
+	<key>Show Edit Bar</key>
+	<true/>
+	<key>Selected Tab Bar Item Index</key>
+	<integer>0</integer>
+	<key>Player View Shown</key>
+	<false/>
+	<key>Shake to Shuffle</key>
+	<false/>
+	<key>Lyrics Shown</key>
+	<false/>
+	<key>Swipe Gesture</key>
+	<false/>
+	<key>Save Playback Time</key>
+	<true/>
+	<key>Player Overlay Shown</key>
+	<false/>
+	<key>Automatically Rename Downloads</key>
+	<true/>
+	<key>Prevent Sleep Mode</key>
+	<false/>
+	<key>Simultaneous Downloads</key>
+	<integer>5</integer>
+	<key>Homepage</key>
+	<string>http://www.harrisonapps.com/royaltyfreemusic/</string>
+	<key>Recovery Mode</key>
+	<false/>
+	<key>Simple Passcode</key>
+	<true/>
+	<key>Numeric Passcode</key>
+	<false/>
+	<key>Passcode Requirement Delay Index</key>
+	<integer>0</integer>
+	<key>Failed Passcode Attempts</key>
+	<integer>0</integer>
+	<key>User Agent Index</key>
+	<integer>0</integer>
+	<key>Custom User Agent</key>
+	<string>User Agent</string>
+	<key>Sort Index</key>
+	<integer>0</integer>
+	<key>Sort Ascending</key>
+	<true/>
+	<key>Sleep Timer Duration</key>
+	<integer>0</integer>
+	<key>Block Ads</key>
+	<true/>
+	<key>Download Notifications</key>
+	<true/>
+	<key>Download Attempts</key>
+	<integer>5</integer>
+	<key>Include Artist In File Name</key>
+	<true/>
+	<key>Version 1.1 Defaults Set</key>
+	<true/>
+</dict>
+</plist>
